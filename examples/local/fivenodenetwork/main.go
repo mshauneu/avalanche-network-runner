@@ -17,10 +17,6 @@ const (
 	healthyTimeout = 2 * time.Minute
 )
 
-var (
-	goPath = os.ExpandEnv("$GOPATH")
-)
-
 // Blocks until a signal is received on [signalChan], upon which
 // [n.Stop()] is called. If [signalChan] is closed, does nothing.
 // Closes [closedOnShutdownChan] amd [signalChan] when done shutting down network.
@@ -58,7 +54,8 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	binaryPath := fmt.Sprintf("%s%s", goPath, "/src/github.com/ava-labs/avalanchego/build/avalanchego")
+	binaryPath := fmt.Sprintf("%s%s", os.ExpandEnv("$HOME"), "/Opt/avalanchego/avalanchego")
+	// binaryPath := fmt.Sprintf("%s%s", os.ExpandEnv("$GOPATH"), "/src/github.com/ava-labs/avalanchego/build/avalanchego")
 	if err := run(log, binaryPath); err != nil {
 		log.Fatal("%s", err)
 	}
